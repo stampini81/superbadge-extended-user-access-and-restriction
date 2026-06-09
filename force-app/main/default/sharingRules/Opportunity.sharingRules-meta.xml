@@ -8,18 +8,16 @@
         <sharedTo>
             <group>Operations</group>
         </sharedTo>
-        <sharingCriteria>
-            <criteriaItems>
-                <field>StageName</field>
-                <operation>equals</operation>
-                <value>Closed Won</value>
-            </criteriaItems>
-            <criteriaItems>
-                <field>Provisioned__c</field>
-                <operation>equals</operation>
-                <value>False</value>
-            </criteriaItems>
-        </sharingCriteria>
+        <criteriaItems>
+            <field>StageName</field>
+            <operation>equals</operation>
+            <value>Closed Won</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Provisioned__c</field>
+            <operation>equals</operation>
+            <value>Falso</value>
+        </criteriaItems>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>GDPR_Auditor_Opportunity_Visibility</fullName>

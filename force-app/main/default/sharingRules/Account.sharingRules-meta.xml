@@ -3,17 +3,20 @@
     <sharingCriteriaRules>
         <fullName>GDPR_Auditor_Account_Visibility</fullName>
         <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
         <description>Grants Read access to all accounts and contracts located in the EU based on the European Union checkbox on the account record.</description>
         <label>GDPR Auditor Account Visibility</label>
         <sharedTo>
             <role>GDPR_Auditor</role>
         </sharedTo>
-        <sharingCriteria>
-            <criteriaItems>
-                <field>European_Union__c</field>
-                <operation>equals</operation>
-                <value>True</value>
-            </criteriaItems>
-        </sharingCriteria>
+        <criteriaItems>
+            <field>European_Union__c</field>
+            <operation>equals</operation>
+            <value>Verdadeiro</value>
+        </criteriaItems>
     </sharingCriteriaRules>
 </SharingRules>

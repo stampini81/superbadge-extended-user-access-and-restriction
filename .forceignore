@@ -15,3 +15,7 @@ node_modules/
 
 # Deployment artifacts
 *.zip
+
+# Temporarily excluded - RestrictionRule not in SF CLI v1.86 registry
+# Deploy via MDAPI format separately
+force-app/main/default/restrictionRules/
