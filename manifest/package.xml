@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>Account</members>
+        <members>Contract</members>
+        <members>Opportunity</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
         <members>GDPR_Auditor</members>
         <members>Technical_Sales_Manager</members>
         <members>Technical_Sales_Representative</members>
@@ -14,7 +20,8 @@
         <name>SharingRules</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Sales_Manager_Task_Restriction</members>
+        <members>Sales_Rep_Task_Restriction</members>
         <name>RestrictionRule</name>
     </types>
     <version>59.0</version>

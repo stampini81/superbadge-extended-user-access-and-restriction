@@ -14,6 +14,9 @@ Thumbs.db
 .vscode/settings.json
 .vscode/launch.json
 
-# Deployment artifacts
+# Generated deployment artifacts
 *.zip
 deploy/
+
+# Reference files (not for deployment)
+force-app/main/default/roles/EMEA_Sales.role-meta.xml
