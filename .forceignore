@@ -1,0 +1,17 @@
+# Salesforce DX
+.sfdx/
+.sf/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# VS Code
+.vscode/settings.json
+.vscode/launch.json
+
+# Deployment artifacts
+*.zip

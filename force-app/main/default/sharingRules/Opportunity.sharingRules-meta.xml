@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Operations_Visibility</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grants visibility to the Operations group for closed won opportunities where Provisioned is not checked.</description>
+        <label>Operations Visibility</label>
+        <sharedTo>
+            <group>Operations</group>
+        </sharedTo>
+        <sharingCriteria>
+            <criteriaItems>
+                <field>StageName</field>
+                <operation>equals</operation>
+                <value>Closed Won</value>
+            </criteriaItems>
+            <criteriaItems>
+                <field>Provisioned__c</field>
+                <operation>equals</operation>
+                <value>False</value>
+            </criteriaItems>
+        </sharingCriteria>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>GDPR_Auditor_Opportunity_Visibility</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grants Read access to all opportunities owned by users in the EMEA Sales role and their subordinates.</description>
+        <label>GDPR Auditor Opportunity Visibility</label>
+        <sharedTo>
+            <role>GDPR_Auditor</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>EMEA_Sales</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

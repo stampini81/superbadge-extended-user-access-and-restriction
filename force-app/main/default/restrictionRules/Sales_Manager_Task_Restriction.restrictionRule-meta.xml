@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RestrictionRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <description>Allows Technical Sales Managers to see only tasks from their department (owned by Technical Sales Manager or Technical Sales Representative role members).</description>
+    <masterLabel>Sales Manager Task Restriction</masterLabel>
+    <recordFilter>OR(Task.Owner.UserRoleId = '00Ebm00000Hgk4fEAB', Task.Owner.UserRoleId = 'PLACEHOLDER_TSR_ROLE_ID')</recordFilter>
+    <targetEntity>Task</targetEntity>
+    <userCriteria>$User.UserRoleId = '00Ebm00000Hgk4fEAB'</userCriteria>
+</RestrictionRule>

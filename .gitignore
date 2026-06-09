@@ -1,0 +1,19 @@
+# Salesforce DX
+.sfdx/
+.sf/
+
+# Node
+node_modules/
+package-lock.json
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/settings.json
+.vscode/launch.json
+
+# Deployment artifacts
+*.zip
+deploy/

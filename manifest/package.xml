@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>GDPR_Auditor</members>
+        <members>Technical_Sales_Manager</members>
+        <members>Technical_Sales_Representative</members>
+        <name>Role</name>
+    </types>
+    <types>
+        <members>Account</members>
+        <members>Contract</members>
+        <members>Opportunity</members>
+        <members>Task</members>
+        <name>SharingRules</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>RestrictionRule</name>
+    </types>
+    <version>59.0</version>
+</Package>
