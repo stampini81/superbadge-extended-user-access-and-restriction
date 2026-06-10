@@ -6,6 +6,6 @@
     <masterLabel>Sales Manager Task Restriction</masterLabel>
     <recordFilter>OwnerId = $User.Id</recordFilter>
     <targetEntity>Task</targetEntity>
-    <userCriteria>$User.UserRoleId = '00Ebm00000Hgk4fEAB'</userCriteria>
+    <userCriteria>$User.UserRoleId = '00Ebm00000Hgk4f'</userCriteria>
     <version>1</version>
 </RestrictionRule>
