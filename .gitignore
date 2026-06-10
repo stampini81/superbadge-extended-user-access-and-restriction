@@ -20,3 +20,6 @@ deploy/
 
 # Reference files (not for deployment)
 force-app/main/default/roles/EMEA_Sales.role-meta.xml
+
+# Utility scripts with credentials
+*.ps1
