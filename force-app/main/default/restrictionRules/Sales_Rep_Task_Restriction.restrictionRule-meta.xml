@@ -2,8 +2,10 @@
 <RestrictionRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <active>true</active>
     <description>Allows Technical Sales Representatives to see only the tasks they own.</description>
+    <enforcementType>Restrict</enforcementType>
     <masterLabel>Sales Rep Task Restriction</masterLabel>
-    <recordFilter>Task.OwnerId = $User.Id</recordFilter>
+    <recordFilter>OwnerId = $User.Id</recordFilter>
     <targetEntity>Task</targetEntity>
-    <userCriteria>$User.UserRoleId = '00Ebm00000HgorSEAR'</userCriteria>
+    <userCriteria>$User.UserRoleId = '00Ebm00000HgorS'</userCriteria>
+    <version>1</version>
 </RestrictionRule>
