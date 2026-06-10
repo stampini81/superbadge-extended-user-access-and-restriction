@@ -16,8 +16,9 @@
         <criteriaItems>
             <field>Provisioned__c</field>
             <operation>equals</operation>
-            <value>Falso</value>
+            <value>False</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>GDPR_Auditor_Opportunity_Visibility</fullName>
@@ -28,7 +29,7 @@
             <role>GDPR_Auditor</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>EMEA_Sales</roleAndSubordinates>
+            <roleAndSubordinatesInternal>EMEA_Sales</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>
