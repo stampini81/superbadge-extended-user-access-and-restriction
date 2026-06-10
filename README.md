@@ -10,6 +10,10 @@
 
 <br/>
 
+![Challenge Complete](doc/imagens/congratulations.png)
+
+<br/>
+
 **Salesforce Trailhead Superbadge**  
 Build effective sharing solutions to provide the right access to the right records.
 
@@ -223,11 +227,13 @@ sf project deploy start \
 
 ---
 
-### Desafio 3 — Controle de Acesso a Tarefas
+### Desafio 3 - Controle de Acesso a Tarefas
 
-#### 3.1. Obter os IDs dos roles (necessário para Restriction Rules)
+Este desafio deve ser configurado no objeto **Task**, em **Setup > Object Manager > Task > Restriction Rules**. O Trailhead valida duas restriction rules ativas, com descricao preenchida, criterios de usuario por role e criterios de registro exatamente alinhados ao cenario.
 
-Os IDs dos roles são únicos por org e necessários para as restriction rules:
+#### 3.1. Obter os IDs reais dos roles
+
+Os IDs dos roles sao unicos por org e sao usados no **User Criteria** das restriction rules:
 
 ```bash
 sf data query \
@@ -235,30 +241,61 @@ sf data query \
   --target-org superbadge-user-access
 ```
 
-> Os IDs começam com `00E` e podem ser encontrados também na URL ao abrir o role no Setup.
+> Os IDs comecam com `00E`. Nesta org, os valores usados foram `00Ebm00000Hgk4fEAB` para `Technical_Sales_Manager` e `00Ebm00000HgorSEAR` para `Technical_Sales_Representative`.
 
-#### 3.2. Atualizar os arquivos de Restriction Rules com os IDs corretos
+#### 3.2. Criar `Sales_Manager_Task_Restriction`
 
-Edite os arquivos abaixo substituindo `PLACEHOLDER_TSR_ROLE_ID` pelo ID real do role `Technical_Sales_Representative`:
+Na UI, crie a rule em **Task > Restriction Rules > New Rule**:
+
+| Campo | Valor |
+|-------|-------|
+| Rule Name | `Sales_Manager_Task_Restriction` |
+| Full Name | `Sales_Manager_Task_Restriction` |
+| Description | `Allows Technical Sales Managers to see only tasks from their department` |
+| Active | Marcado |
+| User Criteria | `$User.UserRoleId` equals `00Ebm00000Hgk4fEAB` |
+| Record Criteria | `[Task].Owner.User.Department` equals current user `$User.Department` |
+
+Metadata equivalente:
 
 **`force-app/main/default/restrictionRules/Sales_Manager_Task_Restriction.restrictionRule-meta.xml`**
 ```xml
-<recordFilter>OR(Task.Owner.UserRoleId = 'TSM_ROLE_ID', Task.Owner.UserRoleId = 'TSR_ROLE_ID')</recordFilter>
-<userCriteria>$User.UserRoleId = 'TSM_ROLE_ID'</userCriteria>
+<recordFilter>Owner:User.Department=$User.Department</recordFilter>
+<targetEntity>Task</targetEntity>
+<userCriteria>$User.UserRoleId='00Ebm00000Hgk4fEAB'</userCriteria>
 ```
+
+> Importante: o criterio do gerente nao deve ser por `Owner.UserRoleId`. O criterio que passou foi por departamento: o departamento do dono da task igual ao departamento do usuario atual.
+
+#### 3.3. Criar `Sales_Rep_Task_Restriction`
+
+Na UI, crie a segunda rule em **Task > Restriction Rules > New Rule**:
+
+| Campo | Valor |
+|-------|-------|
+| Rule Name | `Sales_Rep_Task_Restriction` |
+| Full Name | `Sales_Rep_Task_Restriction` |
+| Description | `Allows Technical Sales Representatives to see only the tasks they own.` |
+| Active | Marcado |
+| User Criteria | `$User.UserRoleId` equals `00Ebm00000HgorSEAR` |
+| Record Criteria | `[Task].Owner.User.Id` equals current user `$User.Id` |
+
+Metadata equivalente:
 
 **`force-app/main/default/restrictionRules/Sales_Rep_Task_Restriction.restrictionRule-meta.xml`**
 ```xml
-<recordFilter>Task.OwnerId = $User.Id</recordFilter>
-<userCriteria>$User.UserRoleId = 'TSR_ROLE_ID'</userCriteria>
+<recordFilter>Owner:User.Id=$User.Id</recordFilter>
+<targetEntity>Task</targetEntity>
+<userCriteria>$User.UserRoleId='00Ebm00000HgorSEAR'</userCriteria>
 ```
 
-#### 3.3. Deploy das Restriction Rules
+#### 3.4. Deploy das Restriction Rules
+
+Neste projeto, as restriction rules devem ser implantadas pelo formato MDAPI em `deploy-mdapi/restrictionRules`:
 
 ```bash
 sf project deploy start \
-  --metadata "RestrictionRule:Sales_Manager_Task_Restriction" \
-  --metadata "RestrictionRule:Sales_Rep_Task_Restriction" \
+  --metadata-dir deploy-mdapi \
   --target-org superbadge-user-access \
   --wait 30
 ```
@@ -267,8 +304,14 @@ sf project deploy start \
 
 | Nome | Aplica-se a | Filtro de Usuário | Filtro de Registro |
 |------|------------|-------------------|-------------------|
-| `Sales_Manager_Task_Restriction` | Technical Sales Managers | UserRoleId = TSM Role ID | Tarefas do departamento Technical Sales |
-| `Sales_Rep_Task_Restriction` | Technical Sales Representatives | UserRoleId = TSR Role ID | Apenas tarefas próprias (OwnerId = usuário atual) |
+| `Sales_Manager_Task_Restriction` | Technical Sales Managers | `$User.UserRoleId='00Ebm00000Hgk4fEAB'` | `Owner:User.Department=$User.Department` |
+| `Sales_Rep_Task_Restriction` | Technical Sales Representatives | `$User.UserRoleId='00Ebm00000HgorSEAR'` | `Owner:User.Id=$User.Id` |
+
+#### 3.5. Resultado
+
+Com esses criterios, o Superbadge foi validado com sucesso:
+
+![Superbadge concluido](doc/imagens/congratulations.png)
 
 ---
 
@@ -325,7 +368,8 @@ sf data query \
 
 ```bash
 sf data query \
-  --query "SELECT Id, DeveloperName, Active FROM RestrictionRule WHERE DeveloperName IN ('Sales_Manager_Task_Restriction','Sales_Rep_Task_Restriction')" \
+  --use-tooling-api \
+  --query "SELECT Id, DeveloperName, TargetEntity, UserCriteria, RecordFilter, IsActive FROM RestrictionRule WHERE DeveloperName IN ('Sales_Manager_Task_Restriction','Sales_Rep_Task_Restriction')" \
   --target-org superbadge-user-access
 ```
 
